@@ -11,4 +11,4 @@
 | 07 | 2023.05.25 | [덱](https://github.com/dduneon/CodingTestPy/blob/main/baekjoon10866.py) | Python | [백준 알고리즘 - Silver 4](https://www.acmicpc.net/problem/10866) |
 | 08 | 2023.05.30 | [에디터](https://github.com/dduneon/CodingTestPy/blob/main/baekjoon1406.py) | Python | [백준 알고리즘 - Silver 2](https://www.acmicpc.net/problem/1406) |
 | 09 | 2023.05.30 | [보물](https://github.com/dduneon/CodingTestPy/blob/main/baekjoon1026.py) | Python | [백준 알고리즘 - Silver 4](https://www.acmicpc.net/problem/1026) |
-
+| 10 | 2023.05.30 | [단어 정렬_1](https://github.com/dduneon/CodingTestPy/blob/main/baekjoon1181.py) [단어 정렬_2](https://github.com/dduneon/CodingTestPy/blob/main/baekjoon1181_1.py)  | Python | [백준 알고리즘 - Silver 5](https://www.acmicpc.net/problem/1181) |
