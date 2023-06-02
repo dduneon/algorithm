@@ -16,3 +16,4 @@
 | 12 | 2023.06.01 | [좌표 정렬하기 2](https://github.com/dduneon/CodingTestPy/blob/main/baekjoon11651.py)  | Python | [백준 알고리즘 - Silver 5](https://www.acmicpc.net/problem/11651) |
 | 13 | 2023.06.01 | [중복 빼고 정렬하기](https://github.com/dduneon/CodingTestPy/blob/main/baekjoon10876.py)  | Python | [백준 알고리즘 - Silver 5](https://www.acmicpc.net/problem/10876) |
 | 14 | 2023.06.01 | [숫자 카드 2](https://github.com/dduneon/CodingTestPy/blob/main/baekjoon10816.py)  | Python | [백준 알고리즘 - Silver 4](https://www.acmicpc.net/problem/10816) |
+| 15 | 2023.06.02 | [괄호](https://github.com/dduneon/CodingTestPy/blob/main/baekjoon9012.py)  | Python | [백준 알고리즘 - Silver 4](https://www.acmicpc.net/problem/9012) |
