@@ -13,21 +13,28 @@ for _ in range(n):
 
     # 프린터 큐에서의 연산
     count = 0
-    brk = False
     while True:
-        if brk:
-            break
+        relocation = False
         item = D.popleft()
+        M -= 1
+
         for p in range(item+1, 10):
             if priority[p] > 0:
-                D.append(item)
+                relocation = True
+                break
+
+        if relocation:
+            D.append(item)
+            if M == -1:
+                M = len(D)-1
+        else:
+            if M == -1:
+                count += 1
+                print(count)
+                break
             else:
-                if i == M:
-                    print(count)
-                    brk = True
-                    break
-                else:
-                    priority[D.popleft()] -= 1
+                priority[item] -= 1
+                count += 1
 
 
 
