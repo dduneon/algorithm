@@ -3,29 +3,34 @@ from sys import stdin
 input = stdin.readline
 
 N = int(input())
-C = [[True for _ in range(N)] for _ in range(N)]
-result = 0
+chess = []
 
-# 체스판 배열 (놓을 수 있는경우 -> True, 없는경우 -> False)
-def recur(startLine):
-    if startLine == N-1:
-        global result
-        result += 1
+count = 0
+def solv(row):
+    if row == N:
+        global count
+        count += 1
         return
-    for i in range(N):
-        if C[startLine][i]:
-            C[startLine][i] = False
-            tmp = 1
-            for j in range(startLine + 1, N):
-                C[j][i] = False
-                if i - tmp > 0:
-                    C[j][i - tmp] = False
-                if i + tmp < N:
-                    C[j][i + tmp] = False
-                tmp += 1
-        else:
-            return
-    recur(startLine+1)
+    # 해당 row에 놓지 말아야할 수 구하기
+    impossible = set()
+    for i in range(0, row):
+        if chess[i]-(row-i) >= 0:
+            impossible.add(chess[i]-(row-i))
+        if chess[i]+(row-i) < N:
+            impossible.add(chess[i]+(row-i))
+        impossible.add(chess[i])
 
-recur(0)
-print(result)
+    # 더이상 갈 칸이 없다면 리턴
+    if len(impossible) == N:
+        return
+
+    # 해당 row에 column들 중 impossible에 들어있지 않은 위치 구해서 재귀
+    for i in range(N):
+        if i not in impossible:
+            chess.append(i)
+            solv(row+1)
+            chess.pop()
+
+solv(0)
+print(count)
+
