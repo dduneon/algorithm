@@ -1,20 +1,36 @@
 from sys import stdin
 
-def check_rowcol(row, col):
+def check(row, col):
     possible = set()
-    for p in range(9):
-        if p not in Pane[row] and p not in rPane[col] and p != 0:
+    for p in range(1, 10):
+        if p not in Pane[row] and p not in rPane[col]:
             possible.add(p)
-    return possible
 
-def check_square(row, col, possible):
-    # 0 1 2 3 4 5 6 7 8
-    # 7인 경우 6 7 8 -> 7 - 7%3 = 6부터
     for r in range(row - (row%3), row - (row%3) + 3):
         for c in range(col - (col%3), col - (col%3) + 3):
             if Pane[r][c] in possible:
                 possible.remove(Pane[r][c])
+
     return possible
+
+def dfs(idx):
+    # 종료 조건 : 빈칸이 없는 경우
+    if idx == len(blank):
+        for y in range(9):
+            print(' '.join(str(Pane[y][x]) for x in range(9)))
+        exit(0)
+    r, c = blank[idx]
+    pos = check(r, c)
+
+    if not pos:
+        return
+    for p in pos:
+        Pane[r][c] = p
+        rPane[c][r] = p
+        dfs(idx+1)
+        Pane[r][c] = 0
+        rPane[c][r] = 0
+
 
 Pane = [list(map(int, stdin.readline().split(' '))) for _ in range(9)]
 rPane = list(map(list, zip(*Pane)))
@@ -27,18 +43,4 @@ for i in range(9):
             blank.append((i, j))
 # blank에 빈 공간 좌표 추가(y, x)
 
-while True:
-    isModified = False
-    for row, col in blank:
-        pos = check_square(row, col, check_rowcol(row, col))
-        if len(pos) > 1:
-            continue
-        print(row, col, pos)
-        isModified = True
-        Pane[row][col] = map(int, pos)
-        rPane[col][row] = map(int, pos)
-        blank.remove((row, col))
-    if not isModified:
-        break
-
-print(Pane)
+dfs(0)
