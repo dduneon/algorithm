@@ -12,8 +12,8 @@ for i in range(2, int(N**0.5) + 1):
             j+=1
 
 primes = [i for i in range(2, N+1) if prime[i]]
-result = 0
 
+result = 0
 for p in range(len(primes)):
     tmp = 0
     for a in range(p, len(primes)):
