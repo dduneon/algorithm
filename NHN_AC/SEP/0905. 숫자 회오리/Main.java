@@ -1,5 +1,3 @@
-package com.nhnacademy.day0905;
-
 import java.util.Arrays;
 
 public class Main {

@@ -10,21 +10,34 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int min = Integer.parseInt(st.nextToken());
-        int max = Integer.parseInt(st.nextToken());
-
-        boolean[] isDivide = new boolean[(int) Math.pow(max, 0.5) + 1];
-        isDivide[0] = false;
+        long min = Long.parseLong(st.nextToken());
+        long max = Long.parseLong(st.nextToken());
 
         // 1, 2, 3 까지 제곱 ㄴㄴ수 -> false
         // 1, 2, 3, 5, 6, 7, 9, 10, 11, 13, 14, 15, 17 ...
         // 4, 8, 12, 16 ... (4의 배수들)
         // 제곱수로 나누어 떨어지는지 ?
         // 4(2^2) 9(3^2) 16(4^2) 25(5^2) 의 배수들을 파악하면 된다
-        // 어디까지..?
-        for (int j = 2; j < isDivide.length; j++) {
+        long size = max - min + 1;
+        boolean[] isDivide = new boolean[(int) size];
+        // 각 인덱스와 숫자의 관계는? index + min = number
 
+        for (long i = 2; i < Math.pow(max, 0.5) + 1; i++) {
+            // long j = min / i + 1;
+            long j = min / (i * i);
+            while (i * i * j <= max) {
+                long tmp;
+                tmp = i * i * j;
+                if (tmp >= min && tmp <= max) {
+                    tmp -= min;
+                    if (!isDivide[(int) tmp]) {
+                        isDivide[(int) tmp] = true;
+                        size--;
+                    }
+                }
+                j += 1;
+            }
         }
-
+        System.out.println(size);
     }
 }
