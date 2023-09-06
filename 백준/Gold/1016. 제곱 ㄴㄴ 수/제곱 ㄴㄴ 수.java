@@ -18,8 +18,8 @@ public class Main {
         // 4, 8, 12, 16 ... (4의 배수들)
         // 제곱수로 나누어 떨어지는지 ?
         // 4(2^2) 9(3^2) 16(4^2) 25(5^2) 의 배수들을 파악하면 된다
-        long size = max - min;
-        boolean[] isDivide = new boolean[(int) size + 1];
+        long size = max - min + 1;
+        boolean[] isDivide = new boolean[(int) size];
         // 각 인덱스와 숫자의 관계는? index + min = number
 
         for (long i = 2; i < Math.pow(max, 0.5) + 1; i++) {
@@ -30,17 +30,14 @@ public class Main {
                 tmp = i * i * j;
                 if (tmp >= min && tmp <= max) {
                     tmp -= min;
-                    if (!isDivide[(int) tmp])
+                    if (!isDivide[(int) tmp]) {
                         isDivide[(int) tmp] = true;
+                        size--;
+                    }
                 }
                 j += 1;
             }
         }
-        int count = 0;
-        for (int i = 0; i < isDivide.length; i++) {
-            if (!isDivide[i])
-                count++;
-        }
-        System.out.println(count);
+        System.out.println(size);
     }
 }
