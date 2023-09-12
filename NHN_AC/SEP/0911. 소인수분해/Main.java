@@ -51,4 +51,46 @@ public class Main {
         }
         return sb.toString();
     }
+
+    public static String solution2(int num) {
+        int origin = num;
+        StringBuilder sb = new StringBuilder();
+        boolean[] isNotPrime = new boolean[num + 1];
+        ArrayList<Integer> primeNumbers = new ArrayList<>();
+
+        // 에라토스테네스의 체 알고리즘 활용 소수 구하기
+        for (int i = 2; i < Math.sqrt(num) + 1; i++) {
+            int j = 2;
+            while (i * j <= num) {
+                if (!isNotPrime[i * j])
+                    isNotPrime[i * j] = true;
+                j++;
+            }
+        }
+        for (int i = 2; i < isNotPrime.length; i++) {
+            if (!isNotPrime[i])
+                primeNumbers.add(i);
+        }
+
+        // Source Code
+        if (origin == 1)
+            sb.append(origin);
+
+        for (int prime : primeNumbers) {
+            if (num == 0 || prime > num)
+                break;
+            while (num % prime == 0) {
+                num /= prime;
+                sb.append(prime);
+                if (num == 1) {
+                    break;
+                }
+                sb.append(" * ");
+            }
+        }
+        sb.append(" = ").append(origin);
+
+        System.out.println(sb.toString());
+        return sb.toString();
+    }
 }
