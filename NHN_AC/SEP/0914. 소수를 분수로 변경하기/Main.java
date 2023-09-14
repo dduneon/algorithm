@@ -1,6 +1,5 @@
 import java.math.BigDecimal;
 import java.util.Scanner;
-import java.util.StringTokenizer;
 
 public class Main {
 
@@ -38,7 +37,8 @@ public class Main {
 
         @Override
         public String toString() {
-            return numerator + "/" + denominator;
+            return (denominator < 0) ? "-" + numerator + "/" + (denominator * -1)
+                    : numerator + "/" + denominator;
         }
     }
 
