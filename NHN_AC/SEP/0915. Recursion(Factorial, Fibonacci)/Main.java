@@ -11,10 +11,9 @@ public class Main {
         if (number < 0)
             throw new IllegalArgumentException("Input Negative Number Error");
 
-        int result = 1;
         switch (number) {
             case 0:
-                return result;
+                return 1;
             default:
                 return number * factorial(number - 1);
         }
