@@ -38,3 +38,4 @@
 |  33  | 2023.07.02 |                              [골드바흐의 추측](./Silver)                              |  Python  | [백준 알고리즘 - Silver 1](https://www.acmicpc.net/problem/6588)  |
 |  34  | 2023.07.10 |                                 [환상의 짝꿍](./Gold)                                 |  Python  |  [백준 알고리즘 - Gold 3](https://www.acmicpc.net/problem/15711)  |
 |  35  | 2023.09.06 |                                [제곱 ㄴㄴ 수](./Gold)                                 |   Java   |  [백준 알고리즘 - Gold 1](https://www.acmicpc.net/problem/1016)   |
+|  36  | 2023.09.19 |                                [DFS와 BFS](./Silver)                                 |   Java   |  [백준 알고리즘 - Silver 2](https://www.acmicpc.net/problem/1260)   |
