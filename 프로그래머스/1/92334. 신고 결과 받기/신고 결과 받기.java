@@ -1,41 +1,19 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 class Solution {
     public int[] solution(String[] id_list, String[] report, int k) {
-        int[] answer = {};
-        Map<String, Integer> userInfo = new HashMap<>();
-        Map<Integer, Set<Integer>> userReport = new HashMap<Integer, Set<Integer>>();
-        for(int i=0; i<id_list.length; i++) {
-            userInfo.put(id_list[i], i);
-            userReport.put(i, new HashSet<Integer>());
+        List<String> list = Arrays.stream(report).distinct().collect(Collectors.toList());
+        HashMap<String, Integer> count = new HashMap<>();
+        for(String s: list) {
+            String target = s.split(" ")[1];
+            count.put(target, count.getOrDefault(target, 0) + 1);
         }
         
-        for(String rep: report) {
-            String[] splitWords = rep.split(" ");
-            userReport.get(userInfo.get(splitWords[0])).add(userInfo.get(splitWords[1]));
-        }
-        
-        int[] repNumber = new int[id_list.length];
-        for(int i=0; i<id_list.length; i++) {
-            for(int repUserNumber: userReport.get(i)) {
-                repNumber[repUserNumber]++;
-            }
-        }
-        
-        Set<Integer> closedUser = new HashSet<>();
-        for(int i=0; i<repNumber.length; i++) {
-            if (repNumber[i] >= k)
-                closedUser.add(i);
-        }
-        
-        answer = new int[id_list.length];
-        for(int i=0; i<id_list.length; i++) {
-            for(int rep: userReport.get(i)) {
-        		if(closedUser.contains(rep))
-            		answer[i]++;
-            }
-        }
-        
-        return answer;
+        return Arrays.stream(id_list).map(_user -> {
+            final String user = _user;
+            List<String> reportList = list.stream().filter(s -> s.startsWith(user + " ")).collect(Collectors.toList());
+            return reportList.stream().filter(s -> count.getOrDefault(s.split(" ")[1], 0) >= k).count();
+        }).mapToInt(Long::intValue).toArray();
     }
 }
