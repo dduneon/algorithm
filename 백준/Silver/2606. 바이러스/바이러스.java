@@ -33,7 +33,8 @@ class Main {
 
         while (!linkedNodes.isEmpty()) {
             int linkedNode = linkedNodes.remove(0);
-            dfs(linkedNode, map, visited);
+            if (!visited[linkedNode])
+                dfs(linkedNode, map, visited);
         }
     }
 }
