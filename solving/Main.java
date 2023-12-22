@@ -1,39 +1,35 @@
 package solving;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
-public class Main {
+class Main {
 
-  public static void main(String[] args) throws Exception {
-    List<Long> list = new ArrayList<>();
+  public static void main(String[] args) throws IOException {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    long N = Integer.parseInt(br.readLine());
+    String[] input = br.readLine().split(" ");
+    int N = Integer.parseInt(input[0]);
+    int K = Integer.parseInt(input[1]);
 
+    int[] numbers = new int[N];
     for (int i = 0; i < N; i++) {
-      list.add(Long.parseLong(br.readLine()));
+      numbers[i] = Integer.parseInt(br.readLine());
     }
 
-    Collections.sort(list);
-    long ansCount = 0;
-    long ans = 0;
+    int[] dp = new int[K + 1];
+    dp[0] = 1;
 
-    int index = 0;
-    while (index < list.size()) {
-      long n = list.get(index);
-      int tmpCount = 0;
-      while (index < list.size() && n == list.get(index)) {
-        tmpCount++;
-        index++;
+    for (int num : numbers) {
+      for (int i = num; i <= K; i++) {
+        dp[i] = dp[i] + dp[i - num];
       }
-      if (tmpCount > ansCount) {
-        ansCount = tmpCount;
-        ans = n;
+
+      for (int n : dp) {
+        System.out.print(n + " ");
       }
+      System.out.println();
     }
-    System.out.println(ans);
+    System.out.println(dp[K]);
   }
 }
