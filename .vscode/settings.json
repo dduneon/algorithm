@@ -1,6 +1,0 @@
-{
-  "java.project.referencedLibraries": [
-    "lib/**/*.jar",
-    "HackerRank/Match/gson-2.8.2.jar"
-  ]
-}
