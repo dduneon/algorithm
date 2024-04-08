@@ -3,8 +3,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
-
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
@@ -54,7 +52,6 @@ class Heap {
 
         int min = heap[0];
         heap[0] = heap[size-1];
-        heap[size-1] = -1;
         size--;
         compareWithChild(0);
 
@@ -66,18 +63,17 @@ class Heap {
         int rightChild = index * 2 + 2;
 
 
-        if(leftChild < size && rightChild < size) {
-            int minChild = heap[leftChild] < heap[rightChild] ? leftChild : rightChild;
+        int minIndex = index;
+        if(leftChild < size && heap[leftChild] < heap[minIndex]) {
+            minIndex = leftChild;
+        }
+        if(rightChild < size && heap[rightChild] < heap[minIndex]) {
+            minIndex = rightChild;
+        }
 
-            if(heap[index] > heap[minChild]) {
-                swap(index, minChild);
-                compareWithChild(minChild);
-            }
-        } else if(leftChild < size) {
-            if(heap[index] > heap[leftChild]) {
-                swap(index, leftChild);
-                compareWithChild(leftChild);
-            }
+        if(minIndex != index) {
+            swap(index, minIndex);
+            compareWithChild(minIndex);
         }
     }
 
@@ -86,5 +82,4 @@ class Heap {
         heap[index1] = heap[index2];
         heap[index2] = tmp;
     }
-
 }
