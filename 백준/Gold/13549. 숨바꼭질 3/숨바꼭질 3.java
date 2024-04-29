@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.StringTokenizer;
 
@@ -13,15 +14,17 @@ public class Main {
         int N = Integer.parseInt(st.nextToken());
         int K = Integer.parseInt(st.nextToken());
 
-        for (int i = 0; i < 200001; i++) {
-            weight[i] = 200000;
-        }
+        Arrays.fill(weight, 100001);
         weight[N] = 0;
 
+        if (K < N) {
+            System.out.println(N - K);
+            return;
+        }
         bfs(N, K);
     }
 
-    static int[] weight = new int[200001];
+    static int[] weight = new int[100001];
 
     public static void bfs(int N, int K) {
         Deque<Integer> deque = new ArrayDeque<>();
@@ -56,6 +59,6 @@ public class Main {
     }
 
     public static boolean isValid(int current) {
-        return current >= 0 && current <= 200000;
+        return current >= 0 && current <= 100000;
     }
 }
