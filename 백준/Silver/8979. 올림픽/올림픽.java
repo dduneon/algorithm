@@ -37,6 +37,10 @@ public class Main {
         });
 
         int result = 1;
+        if (medal[0][0] == K) {
+            System.out.println(result);
+            return;
+        }
         for (int i = 1; i < N; i++) {
             // 동점인 경우
             if (!(medal[i][1] == medal[i - 1][1] && medal[i][2] == medal[i - 1][2] && medal[i][3] == medal[i - 1][3])) {
