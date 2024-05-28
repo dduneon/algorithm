@@ -1,49 +1,58 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int testcase = Integer.parseInt(br.readLine());
-        for(int i=0; i<testcase; i++) {
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            int N = Integer.parseInt(st.nextToken());
-            boolean[] visited = new boolean[N+1];
-            int M = Integer.parseInt(st.nextToken());
+    static class Student {
+        int min;
+        int max;
 
-            int[][] applicant = new int[M][2];
-            for(int j=0; j<M; j++) {
-                st = new StringTokenizer(br.readLine());
-                applicant[j][0] = Integer.parseInt(st.nextToken());
-                applicant[j][1] = Integer.parseInt(st.nextToken());
+        public Student(int min, int max) {
+            this.min = min;
+            this.max = max;
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+        int testCase = Integer.parseInt(input.readLine());
+        StringTokenizer line;
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < testCase; i++) {
+            line = new StringTokenizer(input.readLine());
+            int bookNum = Integer.parseInt(line.nextToken());
+            int studentNum = Integer.parseInt(line.nextToken());
+            PriorityQueue<Student> students = new PriorityQueue<>(
+                    (s1, s2) -> s1.max == s2.max
+                            ? s1.min - s2.min
+                            : s1.max - s2.max);
+            for (int j = 0; j < studentNum; j++) {
+                line = new StringTokenizer(input.readLine());
+                int min = Integer.parseInt(line.nextToken());
+                int max = Integer.parseInt(line.nextToken());
+                students.add(new Student(min, max));
             }
 
-            Arrays.sort(applicant, new Comparator<int[]>() {
-                @Override
-                public int compare(int[] o1, int[] o2) {
-                    return o1[1]-o2[1];
-                }
-            });
+            int count = 0;
 
-            int result = 0;
-            for(int m=0; m<M; m++) {
-                for(int num=applicant[m][0]; num<=applicant[m][1]; num++) {
-                    if(!visited[num]) {
-                        visited[num] = true;
-                        result++;
+            boolean[] books = new boolean[bookNum + 1];
+            while (!students.isEmpty()) {
+                Student current = students.poll();
+                for (int s = current.min; s <= current.max; s++) {
+                    if (!books[s]) {
+                        count++;
+                        books[s] = true;
                         break;
                     }
                 }
             }
-            System.out.println(result);
+
+            result.append(count).append("\n");
         }
+
+        System.out.print(result);
     }
 }
