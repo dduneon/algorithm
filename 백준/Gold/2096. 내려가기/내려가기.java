@@ -11,28 +11,38 @@ public class Main {
 
         int[][] scores = new int[N][3];
         for (int i = 0; i < N; i++) {
-            scores[i] = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            scores[i][0] = Integer.parseInt(st.nextToken());
+            scores[i][1] = Integer.parseInt(st.nextToken());
+            scores[i][2] = Integer.parseInt(st.nextToken());
         }
 
         // [0] -> 최대, [1] -> 최소
-        int[][][] dp = new int[N][3][2];
+        int[] minDp = new int[3];
+        int[] maxDp = new int[3];
         for (int i = 0; i < 3; i++) {
-            dp[0][i][0] = scores[0][i];
-            dp[0][i][1] = scores[0][i];
+            minDp[i] = scores[0][i];
+            maxDp[i] = scores[0][i];
         }
 
         for (int i = 1; i < N; i++) {
-            dp[i][0][0] = Math.max(dp[i - 1][0][0], dp[i - 1][1][0]) + scores[i][0];
-            dp[i][1][0] = Math.max(Math.max(dp[i - 1][0][0], dp[i - 1][1][0]), dp[i - 1][2][0]) + scores[i][1];
-            dp[i][2][0] = Math.max(dp[i - 1][1][0], dp[i - 1][2][0]) + scores[i][2];
+            int maxLeft = Math.max(maxDp[0], maxDp[1]);
+            int maxRight = Math.max(maxDp[1], maxDp[2]);
 
-            dp[i][0][1] = Math.min(dp[i - 1][0][1], dp[i - 1][1][1]) + scores[i][0];
-            dp[i][1][1] = Math.min(Math.min(dp[i - 1][0][1], dp[i - 1][1][1]), dp[i - 1][2][1]) + scores[i][1];
-            dp[i][2][1] = Math.min(dp[i - 1][1][1], dp[i - 1][2][1]) + scores[i][2];
+            maxDp[0] = maxLeft + scores[i][0];
+            maxDp[1] = Math.max(maxLeft, maxRight) + scores[i][1];
+            maxDp[2] = maxRight + scores[i][2];
+
+            int minLeft = Math.min(minDp[0], minDp[1]);
+            int minRight = Math.min(minDp[1], minDp[2]);
+
+            minDp[0] = minLeft + scores[i][0];
+            minDp[1] = Math.min(minLeft, minRight) + scores[i][1];
+            minDp[2] = minRight + scores[i][2];
         }
 
-        int max = Math.max(Math.max(dp[N - 1][0][0], dp[N - 1][1][0]), dp[N - 1][2][0]);
-        int min = Math.min(Math.min(dp[N - 1][0][1], dp[N - 1][1][1]), dp[N - 1][2][1]);
+        int max = Math.max(Math.max(maxDp[0], maxDp[1]), maxDp[2]);
+        int min = Math.min(Math.min(minDp[0], minDp[1]), minDp[2]);
 
         StringBuilder sb = new StringBuilder();
         sb.append(max).append(" ").append(min);
