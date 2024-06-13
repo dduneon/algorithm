@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-    private static boolean[][][] concat;
+    private static boolean[][] concat;
     private static int N;
     private static int M;
     private static int H;
@@ -23,7 +23,7 @@ public class Main {
         // 상하좌우 사이드 고려하여 +2만큼 더 크게 생성
         // 세로 줄의 양 끝 (0, N+1) 은 없는 줄이고 false 이기 때문에 갈 수 없음
         // 가로 줄의 마지막 (M+1) 은 도착지점을 의미함
-        concat = new boolean[N + 2][N + 2][H + 2];
+        concat = new boolean[N + 2][H + 2];
         for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
             // b번 세로선과 b+1번 세로선을 a번 점선 위치에서 연결
@@ -31,7 +31,7 @@ public class Main {
             int b = Integer.parseInt(st.nextToken());
 
             // b와 b+1 세로선이 a 위치에서 연결되어 있음을 표시
-            concat[b][b + 1][a] = true;
+            concat[b][a] = true;
         }
 
         // 만약 초기 상태에서 조건에 만족한다면 리턴
@@ -43,13 +43,13 @@ public class Main {
         for (int i = 1; i <= H; i++) {
             for (int j = 1; j < N; j++) {
                 // 연결되어 있지 않은 가로선이라면
-                if (!concat[j][j + 1][i]) {
+                if (!concat[j][i]) {
                     // 연결로 바꾸고
-                    concat[j][j + 1][i] = true;
+                    concat[j][i] = true;
                     // DFS 시작, depth는 1
-                    solve(1, 1);
+                    solve(1, 1, 1);
                     // 다시 연결 해제
-                    concat[j][j + 1][i] = false;
+                    concat[j][i] = false;
                 }
             }
         }
@@ -58,7 +58,7 @@ public class Main {
 
     private static int result = 4;
 
-    private static void solve(int depth, int recentHeight) {
+    private static void solve(int depth, int Ry, int Rx) {
         // 총 3개까지만 추가할 수 있음
         if (depth == 4) {
             return;
@@ -70,16 +70,16 @@ public class Main {
             return;
         }
 
-        for (int i = recentHeight; i <= H; i++) {
-            for (int j = 1; j < N; j++) {
+        for (int i = Ry; i <= H; i++, Rx = 1) {
+            for (int j = Rx; j < N; j++) {
                 // 연결되어 있지 않은 가로선이라면
-                if (!concat[j][j + 1][i]) {
+                if (!concat[j][i]) {
                     // 연결로 바꾸고
-                    concat[j][j + 1][i] = true;
+                    concat[j][i] = true;
                     // DFS 시작, 하나 더 설치했기에 올려줌
-                    solve(depth + 1, i);
+                    solve(depth + 1, i, j);
                     // 다시 연결 해제
-                    concat[j][j + 1][i] = false;
+                    concat[j][i] = false;
                 }
             }
         }
@@ -93,11 +93,11 @@ public class Main {
             // 현재 위치한 가로축의 번호
             int width = i;
             while (height != H + 1) {
-                if (concat[width - 1][width][height]) {
+                if (concat[width - 1][height]) {
                     // 왼쪽 세로줄과 연결이 되어 있다면
                     height++;
                     width--;
-                } else if (concat[width][width + 1][height]) {
+                } else if (concat[width][height]) {
                     // 오른쪽 세로줄과 연결이 되어 있다면
                     height++;
                     width++;
