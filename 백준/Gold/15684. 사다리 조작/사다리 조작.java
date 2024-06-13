@@ -47,7 +47,7 @@ public class Main {
                     // 연결로 바꾸고
                     concat[j][i] = true;
                     // DFS 시작, depth는 1
-                    solve(1, 1, 1);
+                    solve(1, i, j);
                     // 다시 연결 해제
                     concat[j][i] = false;
                 }
