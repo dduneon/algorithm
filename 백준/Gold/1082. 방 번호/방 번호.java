@@ -31,10 +31,8 @@ public class Main {
         // P[i] = 각 숫자의 가격
         P = new int[N];
         // 가장 최소 가격, 그 전까지는 0원
-//        int start = Integer.MAX_VALUE;
         for (int i = 0; i < N; i++) {
             P[i] = Integer.parseInt(st.nextToken());
-//            start = Math.min(start, P[i]);
         }
 
         // 구매하기 위해 준비한 금액 M원
