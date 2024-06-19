@@ -1,9 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayDeque;
 import java.util.Arrays;
-import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
@@ -47,9 +45,6 @@ public class Main {
             }
             startPos = spot[i];
         }
-//        for (int i = 0; i < N; i++) {
-//            System.out.println(arr[i][0] + ", " + arr[i][1]);
-//        }
 
         int count = 0;
         long result = 0;
@@ -74,12 +69,6 @@ public class Main {
                     queue.add(new int[] {currentIdx, subIdx, depth + 1});
                 }
             }
-
-//            System.out.print("count: " + count + " ");
-//            for (int i = 0; i < N; i++) {
-//                System.out.print(arr[i][0] + ", " + arr[i][1] + "  ");
-//            }
-//            System.out.println("-> result : " + result);
         }
 
         System.out.println(result);
